@@ -3,7 +3,13 @@
 // get database connection
 $db = require __DIR__."/../odbc.pdo.php";
 
-$sql = "SELECT * FROM [ISYS4283].[dbo].[products]";
+$sql = "
+	SELECT p.id, p.name, p.description, p.image, p.price,
+		p.vendor, v.name AS 'vendor_name', v.description AS 'vendor_description'
+	FROM [ISYS4283].[dbo].[products] p
+	JOIN [ISYS4283].[dbo].[vendors] v
+	  ON p.vendor = v.id
+";
 
 // if URL query string
 // has a product ID filter
@@ -11,7 +17,7 @@ $sql = "SELECT * FROM [ISYS4283].[dbo].[products]";
 if(isset($_GET['id']) && is_int(filter_var($_GET['id'], FILTER_VALIDATE_INT))){
 
 	// append SQL with parameterized placeholder
-	$sql .= " WHERE id = :id_parameter";
+	$sql .= " WHERE p.id = :id_parameter";
 
 	// prepare the statement
 	$statement = $db->prepare($sql);
