@@ -1,7 +1,7 @@
 <?php
 
 // get database connection
-$db = require __DIR__."/../odbc.pdo.php";
+$db = require __DIR__."/../pdo.php";
 
 $sql = "
 	-- if it gets any more complex than this, then should use a view
