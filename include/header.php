@@ -53,16 +53,17 @@
 
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul id='top_navigation_menu' class='top_nav nav navbar-nav navigation-menu'>
+					<li><a href='/'>Products</a></li>
 				</ul>
 				<div id='login_nav_div' class='top_nav navbar-right pull-right-md pull-left-xs'>
 					<ul class="nav navbar-nav navigation-menu">
 		  <?php
-		    if (isset($_SESSION["username"])) {
-				echo "<li id='logout'><a href='?logout'>Logout $_SESSION[username]</a></li>";
-		    }
-		    else {
-				echo "<li id='login'><a href='#login'>Login</a></li>";
-		    }
+// 		    if (isset($_SESSION["username"])) {
+// 				echo "<li id='logout'><a href='?logout'>Logout $_SESSION[username]</a></li>";
+// 		    }
+// 		    else {
+// 				echo "<li id='login'><a href='#login'>Login</a></li>";
+// 		    }
 		  ?>
 					</ul>
 				</div>
