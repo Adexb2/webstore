@@ -6,7 +6,7 @@ return (function(){
 
 	$sql = "
 		-- if it gets any more complex than this, then should use a view
-		SELECT p.id, p.name, p.description, p.image, p.price,
+		SELECT p.id, p.name, p.description, p.image, FORMAT(p.price, 'C', 'en-us') AS 'price',
 			p.vendor, v.name AS 'vendor_name', v.description AS 'vendor_description'
 		FROM [ISYS4283].[dbo].[products] p
 		JOIN [ISYS4283].[dbo].[vendors] v
