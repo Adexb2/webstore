@@ -1,9 +1,9 @@
 <?php
 
 // get database connection
-$db = require __DIR__."/../odbc.pdo.php";
+$db = require __DIR__."/../mysql.pdo.php";
 
-$sql = "SELECT * FROM [ISYS4283].[dbo].[products]";
+$sql = "SELECT * FROM products";
 
 // if URL query string
 // has a product ID filter
