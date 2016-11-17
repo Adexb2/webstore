@@ -38,6 +38,8 @@ return (function(){
 		$parameters['vendor_parameter'] = $_GET['vendor'];
 	}
 
+	$sql .= " ORDER BY p.image DESC";
+
 	// if no filters, just query the SELECT statement
 	// without a WHERE clause
 	if(empty($parameters)){
