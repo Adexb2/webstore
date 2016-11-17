@@ -19,7 +19,7 @@
 		</p>
 
 		<!-- buy now button -->
-		<button data-product="<?= $id ?>" class="btn btn-success">
+		<button data-product="<?= $id ?>" class="purchase btn btn-success">
 			<?= $price ?>
 		</button>
 

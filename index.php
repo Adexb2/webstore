@@ -10,3 +10,5 @@ foreach($products as $product){
 }
 
 require 'include/footer.php';
+
+require 'include/views/purchase_item.html';

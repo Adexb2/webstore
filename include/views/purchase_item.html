@@ -1,0 +1,93 @@
+  <script>
+  $( function() {
+    var dialog, form,
+ 
+      vendor = $( "#vendor" ),
+      quantity = $( "#quantity" ),
+      allFields = $( [] ).add( vendor ).add( quantity ),
+      tips = $( ".validateTips" );
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function purchaseItem() {
+      var valid = true;
+      allFields.removeClass( "ui-state-error" );
+ 
+      valid = valid && checkRegexp( vendor, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+ 
+      if ( valid ) {
+		$.ajax({
+			url: "/api/purchase_item.php",
+			type: "get",
+			data: $("#purchase_order_form").serialize(),
+			success: function(result){
+				$(".validateTips").html(result);
+			}
+		});
+//         dialog.dialog( "close" );
+      }
+      return valid;
+    }
+ 
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 400,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Purchase": purchaseItem,
+        Cancel: function() {
+          dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+ 
+    form = dialog.find( "form" ).on( "submit", function( event ) {
+      event.preventDefault();
+      purchaseItem();
+    });
+ 
+    $( ".purchase" ).button().on( "click", function() {
+		$(".validateTips").html('All form fields are required.');
+		$("#product").val($(this).data("product"));
+      dialog.dialog( "open" );
+    });
+  } );
+  </script>
+
+<div id="dialog-form" title="Create new user">
+	<p class="validateTips">All form fields are required.</p>
+
+	<form id="purchase_order_form">
+		<fieldset>
+			<label for="vendor">Vendor</label>
+			<input type="text" name="vendor" id="vendor" class="text ui-widget-content ui-corner-all" required/>
+			<label for="quantity">Quantity</label>
+			<input type="number" name="quantity" id="quantity" min="1" value="1" required/>
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			<input type="hidden" name="product" id="product"/>
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</fieldset>
+	</form>
+</div>
